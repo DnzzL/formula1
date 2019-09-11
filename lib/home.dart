@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:formula1/circuit.dart';
 import 'package:formula1/constructor.dart';
 import 'package:formula1/driver.dart';
-import 'package:formula1/schedule.dart';
+import 'package:formula1/race.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    ScheduleWidget(),
+    RaceWidget(),
     DriverWidget(),
     ConstructorWidget(),
     CircuitWidget()
@@ -36,20 +37,20 @@ class _HomeState extends State<Home> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.schedule),
-            title: Text('Schedule'),
+            icon: Icon(MdiIcons.flagCheckered),
+            title: Text('Race'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(MdiIcons.racingHelmet),
             title: Text('Driver'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.people_outline),
+            icon: Icon(MdiIcons.garage),
             title: Text('Constructor'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.directions_car),
-            title: Text('Circuit')
+            icon: Icon(MdiIcons.selectCompare),
+            title: Text('VS')
           )
         ],
       ),

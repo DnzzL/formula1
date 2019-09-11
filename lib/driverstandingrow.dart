@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:formula1/driver.dart';
-import 'driver.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'model/driverstanding.dart';
 
 class DriverStandingRow extends StatelessWidget {
@@ -19,11 +18,9 @@ class DriverStandingRow extends StatelessWidget {
       child: Stack(
       children: <Widget>[
         ClipRRect(
-        borderRadius: new BorderRadius.circular(45.0),
+        borderRadius: new BorderRadius.circular(20.0),
         child: Image(
             image: new AssetImage("assets/img/drivers/${driverStanding.driverId}.jpg"),
-            height: 92.0,
-            width: 92.0,
           )
         )
       ],
@@ -51,7 +48,7 @@ class DriverStandingRow extends StatelessWidget {
     Widget _driverStandingValue({String value, IconData icon}) {
       return new Row(
         children: <Widget>[
-          Icon(icon, size: 12.0, color: Colors.white,),
+          Icon(icon, size: 18.0, color: Colors.white,),
           new Container(width: 8.0),
           new Text(value, style: regularTextStyle),
         ]
@@ -60,7 +57,7 @@ class DriverStandingRow extends StatelessWidget {
 
 
     final driverStandingCardContent = new Container(
-      margin: new EdgeInsets.fromLTRB(76.0, 16.0, 16.0, 16.0),
+      margin: new EdgeInsets.fromLTRB(90.0, 10.0, 16.0, 16.0),
       constraints: new BoxConstraints.expand(),
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,13 +77,13 @@ class DriverStandingRow extends StatelessWidget {
               new Expanded(
                 child: _driverStandingValue(
                   value: driverStanding.points,
-                  icon: Icons.confirmation_number)
+                  icon: MdiIcons.counter)
 
               ),
               new Expanded(
                 child: _driverStandingValue(
                   value: driverStanding.wins,
-                  icon: Icons.first_page)
+                  icon: MdiIcons.medal)
               )
             ],
           ),
@@ -98,14 +95,14 @@ class DriverStandingRow extends StatelessWidget {
     final driverStandingCard = new Container(
       child: driverStandingCardContent,
       height: 124.0,
-      margin: new EdgeInsets.only(left: 46.0),
+      margin: new EdgeInsets.only(left: 20.0),
       decoration: new BoxDecoration(
-        color: Colors.black,
+        color: Colors.grey[850],
         shape: BoxShape.rectangle,
         borderRadius: new BorderRadius.circular(8.0),
         boxShadow: <BoxShadow>[
           new BoxShadow(
-            color: Colors.black26,
+            color: Colors.grey[900],
             blurRadius: 10.0,
             offset: new Offset(0.0, 5.0),
           ),

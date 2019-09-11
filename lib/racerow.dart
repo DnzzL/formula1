@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'model/constructorstanding.dart';
+import 'model/race.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class ConstructorStandingRow extends StatelessWidget {
+class RaceRow extends StatelessWidget {
 
-  final ConstructorStanding constructorStanding;
+  final Race race;
 
-  ConstructorStandingRow(this.constructorStanding);
+  RaceRow(this.race);
 
   @override
   Widget build(BuildContext context) {
     
-    final constructorStandingThumbnail = Container(
+    final raceThumbnail = Container(
       margin: new EdgeInsets.symmetric(
         vertical: 8.0,
         horizontal: 15
@@ -22,9 +22,9 @@ class ConstructorStandingRow extends StatelessWidget {
         ClipRRect(
         borderRadius: new BorderRadius.circular(90.0),
         child: Image(
-            image: new AssetImage("assets/img/constructors/${constructorStanding.constructorId}.png"),
-            height: 92.0,
-            width: 92.0,
+            image: new AssetImage("assets/img/races/${race.circuitId}.png"),
+            height: 90,
+            width: 90,
           )
         )
       ],
@@ -45,11 +45,11 @@ class ConstructorStandingRow extends StatelessWidget {
     );
     final headerTextStyle = baseTextStyle.copyWith(
       color: Colors.white,
-      fontSize: 24.0,
+      fontSize: 20.0,
       fontWeight: FontWeight.w600
     );
 
-    Widget _constructorStandingValue({String value, IconData icon}) {
+    Widget _raceValue({String value, IconData icon}) {
       return new Row(
         children: <Widget>[
           Icon(icon, size: 18.0, color: Colors.white,),
@@ -60,16 +60,16 @@ class ConstructorStandingRow extends StatelessWidget {
     }
 
 
-    final constructorStandingCardContent = new Container(
+    final raceCardContent = new Container(
       margin: new EdgeInsets.fromLTRB(130.0, 16.0, 16.0, 16.0),
       constraints: new BoxConstraints.expand(),
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           new Container(height: 2.0),
-          new Text(constructorStanding.name, style: headerTextStyle),
+          new Text(race.name, style: headerTextStyle),
           new Container(height: 4.0),
-          new Text(constructorStanding.nationality, style: subHeaderTextStyle),
+          new Text("${race.date} ${race.time}", style: subHeaderTextStyle),
           new Container(
             margin: new EdgeInsets.symmetric(vertical: 4.0),
             height: 2.0,
@@ -79,15 +79,15 @@ class ConstructorStandingRow extends StatelessWidget {
           new Row(
             children: <Widget>[
               new Expanded(
-                child: _constructorStandingValue(
-                  value: constructorStanding.points,
-                  icon: MdiIcons.counter)
+                child: _raceValue(
+                  value: race.locality,
+                  icon: MdiIcons.city)
 
               ),
               new Expanded(
-                child: _constructorStandingValue(
-                  value: constructorStanding.wins,
-                  icon: MdiIcons.medal)
+                child: _raceValue(
+                  value: race.country,
+                  icon: MdiIcons.flagTriangle)
               )
             ],
           ),
@@ -96,8 +96,8 @@ class ConstructorStandingRow extends StatelessWidget {
     );
 
 
-    final constructorStandingCard = new Container(
-      child: constructorStandingCardContent,
+    final raceCard = new Container(
+      child: raceCardContent,
       height: 124.0,
       decoration: new BoxDecoration(
         color: Colors.grey[850],
@@ -122,8 +122,8 @@ class ConstructorStandingRow extends StatelessWidget {
       ),
       child: new Stack(
         children: <Widget>[
-          constructorStandingCard,
-          constructorStandingThumbnail,
+          raceCard,
+          raceThumbnail,
         ],
       )
     );

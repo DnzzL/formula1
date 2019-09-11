@@ -19,6 +19,7 @@ environment:
 dependencies:
   http: ^0.12.0+2
   xml: ^3.5.0
+  material_design_icons_flutter: ^3.2.4096
   flutter:
     sdk: flutter
 
@@ -50,6 +51,7 @@ flutter:
   assets:
     - assets/img/drivers/
     - assets/img/constructors/
+    - assets/img/races/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

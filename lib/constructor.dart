@@ -48,7 +48,7 @@ class _ConstructorWidgetState extends State<ConstructorWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: Container(
-        color: Colors.black87,
+        color: Colors.black,
         child: CustomScrollView(
           scrollDirection: Axis.vertical,
           shrinkWrap: false,
