@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:formula1/model/constructorstanding.dart';
 import 'package:xml/xml.dart' as xml;
 import 'package:http/http.dart' as http;
 
-class Constructor {
-  String name;
-  String nationality;
-  String url;
-
-  Constructor(String name, String nationality, String url) {
-    this.name = name;
-    this.nationality = nationality;
-    this.url = url;
-  }
-}
+import 'constructorstandingrow.dart';
 
 class ConstructorWidget extends StatefulWidget{
   @override
@@ -20,103 +11,60 @@ class ConstructorWidget extends StatefulWidget{
 }
 
 class _ConstructorWidgetState extends State<ConstructorWidget> {
-  final _formKey = GlobalKey<FormState>();
+  List<ConstructorStanding> constructorStandings = List<ConstructorStanding>();
 
-  String season;
+  @override
+  initState() {
+    super.initState();
+    // Add listeners to this class
+    fetch();
+  }
 
-  String round;
-
-  final icons = [Icons.directions_bike, Icons.directions_boat,
-      Icons.directions_bus, Icons.directions_car, Icons.directions_railway,
-      Icons.directions_run, Icons.directions_subway, Icons.directions_transit,
-      Icons.directions_walk];
-
-  List<Constructor> constructors = List<Constructor>();
 
   void fetch() async {
     String api = "https://ergast.com/api/f1";
-    String url;
-
-    if (season == null) {
-      season = "current";
-    }
-    if (round == null) {
-      url = '$api/$season/constructors';
-    } else {
-      url = '$api/$season/$round/constructors';
-    }
+    String url = "$api/current/constructorStandings";
     
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var xmlResponse = xml.parse(response.body);
       setState(() {
-        constructors = xmlResponse.findAllElements('Constructor')
-        .map<Constructor>((constructor) {
-            return Constructor(constructor.findElements("Name").first.text,
-            constructor.findElements("Nationality").first.text,
-            constructor.getAttribute("url"));
+        constructorStandings =  xmlResponse.findAllElements("ConstructorStanding").map((standing) {
+          return ConstructorStanding(
+            standing.getAttribute("position"),
+            standing.getAttribute("points"),
+            standing.getAttribute("wins"),
+            standing.findElements("Constructor").first.getAttribute("constructorId"),
+            standing.findElements("Constructor").first.findElements("Name").first.text,
+            standing.findElements("Constructor").first.findElements("Nationality").first.text);
         }).toList();
       });
-  
     } else {
       print("Request failed with status: ${response.statusCode}.");
-      constructors = List<Constructor>();
     }
-    constructors.map<String>((el) => el.name).toList();
-  }
+}
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Season'),
-                  onFieldSubmitted: (val) {
-                    setState(() => season = val);
-                  },
+    return Container(
+      child: Container(
+        color: Colors.black87,
+        child: CustomScrollView(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: false,
+          slivers: <Widget>[
+           SliverPadding(
+              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              sliver:  SliverList(
+                delegate:  SliverChildBuilderDelegate(
+                    (context, index) =>  ConstructorStandingRow(constructorStandings[index]),
+                    childCount: constructorStandings.length,
                 ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Round'),
-                  onSaved: (val) => setState(() => round = val),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: RaisedButton(
-                    onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        fetch();
-                      }
-                    },
-                    child: Text('Submit'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          constructors.length > 0 ?
-          Expanded(
-            child:ListView.builder(
-          itemCount: constructors.length,
-          itemBuilder: (context, index) {
-            return Card( //                           <-- Card widget
-              child: ListTile(
-                leading: Icon(Icons.directions_car),
-                title: Text(constructors.map((e)=> e.name).toList()[index]),
-                subtitle: Text(constructors.map((e)=> e.nationality).toList()[index]),
               ),
-            );
-          },
-        )
-          )
-        : Container()
-        ],
-      )
-      );
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:formula1/driver.dart';
+import 'model/constructorstanding.dart';
 
-import 'driver.dart';
+class ConstructorStandingRow extends StatelessWidget {
 
-class DriverStandingRow extends StatelessWidget {
+  final ConstructorStanding constructorStanding;
 
-  final DriverStanding driverStanding;
-
-  DriverStandingRow(this.driverStanding);
+  ConstructorStandingRow(this.constructorStanding);
 
   @override
   Widget build(BuildContext context) {
     
-    final driverStandingThumbnail = Container(
+    final constructorStandingThumbnail = Container(
       margin: new EdgeInsets.symmetric(
-        vertical: 8.0
+        vertical: 8.0,
+        horizontal: 15
       ),
       alignment: FractionalOffset.centerLeft,
       child: Stack(
@@ -22,7 +21,7 @@ class DriverStandingRow extends StatelessWidget {
         ClipRRect(
         borderRadius: new BorderRadius.circular(90.0),
         child: Image(
-            image: new AssetImage("assets/img/drivers/${driverStanding.driverId}.jpg"),
+            image: new AssetImage("assets/img/constructors/${constructorStanding.constructorId}.png"),
             height: 92.0,
             width: 92.0,
           )
@@ -37,19 +36,19 @@ class DriverStandingRow extends StatelessWidget {
     );
     final regularTextStyle = baseTextStyle.copyWith(
       color: Colors.white70,
-      fontSize:11.0,
+      fontSize:12.0,
       fontWeight: FontWeight.w400
     );
     final subHeaderTextStyle = regularTextStyle.copyWith(
-      fontSize: 14.0
+      fontSize: 16.0
     );
     final headerTextStyle = baseTextStyle.copyWith(
       color: Colors.white,
-      fontSize: 20.0,
+      fontSize: 24.0,
       fontWeight: FontWeight.w600
     );
 
-    Widget _driverStandingValue({String value, IconData icon}) {
+    Widget _constructorStandingValue({String value, IconData icon}) {
       return new Row(
         children: <Widget>[
           Icon(icon, size: 12.0, color: Colors.white,),
@@ -60,16 +59,16 @@ class DriverStandingRow extends StatelessWidget {
     }
 
 
-    final driverStandingCardContent = new Container(
-      margin: new EdgeInsets.fromLTRB(76.0, 16.0, 16.0, 16.0),
+    final constructorStandingCardContent = new Container(
+      margin: new EdgeInsets.fromLTRB(130.0, 16.0, 16.0, 16.0),
       constraints: new BoxConstraints.expand(),
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           new Container(height: 2.0),
-          new Text(driverStanding.name, style: headerTextStyle),
+          new Text(constructorStanding.name, style: headerTextStyle),
           new Container(height: 4.0),
-          new Text(driverStanding.constructor, style: subHeaderTextStyle),
+          new Text(constructorStanding.nationality, style: subHeaderTextStyle),
           new Container(
             margin: new EdgeInsets.symmetric(vertical: 4.0),
             height: 2.0,
@@ -79,14 +78,14 @@ class DriverStandingRow extends StatelessWidget {
           new Row(
             children: <Widget>[
               new Expanded(
-                child: _driverStandingValue(
-                  value: driverStanding.points,
+                child: _constructorStandingValue(
+                  value: constructorStanding.points,
                   icon: Icons.confirmation_number)
 
               ),
               new Expanded(
-                child: _driverStandingValue(
-                  value: driverStanding.wins,
+                child: _constructorStandingValue(
+                  value: constructorStanding.wins,
                   icon: Icons.first_page)
               )
             ],
@@ -96,10 +95,9 @@ class DriverStandingRow extends StatelessWidget {
     );
 
 
-    final driverStandingCard = new Container(
-      child: driverStandingCardContent,
+    final constructorStandingCard = new Container(
+      child: constructorStandingCardContent,
       height: 124.0,
-      margin: new EdgeInsets.only(left: 46.0),
       decoration: new BoxDecoration(
         color: Colors.black,
         shape: BoxShape.rectangle,
@@ -116,15 +114,15 @@ class DriverStandingRow extends StatelessWidget {
 
 
     return new Container(
-      height: 100.0,
+      height: 120.0,
       margin: const EdgeInsets.symmetric(
         vertical: 5.0,
         horizontal: 20.0,
       ),
       child: new Stack(
         children: <Widget>[
-          driverStandingCard,
-          driverStandingThumbnail,
+          constructorStandingCard,
+          constructorStandingThumbnail,
         ],
       )
     );

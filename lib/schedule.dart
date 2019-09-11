@@ -1,24 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xml/xml.dart' as xml;
 import 'package:http/http.dart' as http;
-
-class Race {
-  String season;
-  String round;
-  String url;
-  String name;
-  String date;
-  String time;
-
-  Race(String season, String round, String url, String name, String date, String time) {
-    this.season = season;
-    this.round = round;
-    this.url = url;
-    this.name = name;
-    this.date = date;
-    this.time = time;
-  }
-}
+import 'model/race.dart';
 
 class ScheduleWidget extends StatefulWidget {
   @override
