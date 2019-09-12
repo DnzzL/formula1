@@ -107,6 +107,55 @@ class _DriverDetailsWidgetState extends State<DriverDetailsWidget> {
       print("Request failed with status: ${response.statusCode}.");
     }
   }
+  
+
+  Widget _getDateOfBirth() {
+    return Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
+                  ),
+                  Icon(MdiIcons.calendar, color: Colors.red[400]),
+                  Container(
+                    margin: EdgeInsets.only(right: 20),
+                  ),
+                  Text(this.driverStanding.dateOfBirth,
+                      style: subHeaderTextStyle),
+                ],
+              );
+  }
+
+  Widget _getNationality() {
+    return Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.fromLTRB(50, 50, 0, 0),
+                  ),
+                  Icon(MdiIcons.city, color: Colors.red[400]),
+                  Container(
+                    margin: EdgeInsets.only(right: 20),
+                  ),
+                  Text(this.driverStanding.nationality,
+                      style: subHeaderTextStyle),
+                ],
+              );
+  }
+
+  Widget _getConstructor() {
+    return Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(left: 50),
+                  ),
+                  Icon(MdiIcons.garage, color: Colors.red[400]),
+                  Container(
+                    margin: EdgeInsets.only(right: 20),
+                  ),
+                  Text(this.driverStanding.constructor,
+                      style: subHeaderTextStyle),
+                ],
+              );
+  }
 
   Widget _getLegend() {
     return Container(
@@ -118,7 +167,7 @@ class _DriverDetailsWidgetState extends State<DriverDetailsWidget> {
             height: 10,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.red,
+              color: Colors.orange,
             ),
           ),
           SizedBox(
@@ -207,6 +256,7 @@ class _DriverDetailsWidgetState extends State<DriverDetailsWidget> {
                 isCurved: true,
                 barWidth: 3,
                 isStrokeCapRound: true,
+                colors: [Colors.orange],
                 dotData: FlDotData(
                   show: false,
                 ),
@@ -278,45 +328,9 @@ class _DriverDetailsWidgetState extends State<DriverDetailsWidget> {
                 ),
               ),
               SizedBox(height: 20),
-              Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
-                  ),
-                  Icon(MdiIcons.calendar, color: Colors.red),
-                  Container(
-                    margin: EdgeInsets.only(right: 20),
-                  ),
-                  Text(this.driverStanding.dateOfBirth,
-                      style: subHeaderTextStyle),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(50, 50, 0, 0),
-                  ),
-                  Icon(MdiIcons.city, color: Colors.red),
-                  Container(
-                    margin: EdgeInsets.only(right: 20),
-                  ),
-                  Text(this.driverStanding.nationality,
-                      style: subHeaderTextStyle),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(left: 50),
-                  ),
-                  Icon(MdiIcons.garage, color: Colors.red),
-                  Container(
-                    margin: EdgeInsets.only(right: 20),
-                  ),
-                  Text(this.driverStanding.constructor,
-                      style: subHeaderTextStyle),
-                ],
-              ),
+              _getDateOfBirth(),
+              _getNationality(),
+              _getConstructor(),
               Row(
                 children: <Widget>[],
               ),
