@@ -11,6 +11,8 @@ class RaceWidget extends StatefulWidget {
 
 class _RaceWidgetState extends State<RaceWidget> {
   List<Race> races = List<Race>();
+  int nextRace;
+  ScrollController _scrollController = ScrollController();
 
   @override
   initState() {
@@ -42,6 +44,9 @@ class _RaceWidgetState extends State<RaceWidget> {
             race.findElements("Circuit").first.findElements("Location").first.findElements("Country").first.text
             );
         }).toList();
+        nextRace = int.parse(races.firstWhere((race) =>
+          DateTime.parse(race.date).isAfter(DateTime.now())
+        ).round) - 1;
       });
     } else {
       print("Request failed with status: ${response.statusCode}.");
@@ -53,7 +58,7 @@ class _RaceWidgetState extends State<RaceWidget> {
     return races.length > 0 ?
     Container(
       child: Container(
-        color: Colors.black,
+        color: Colors.grey[900],
         child: CustomScrollView(
           scrollDirection: Axis.vertical,
           shrinkWrap: false,
@@ -62,7 +67,7 @@ class _RaceWidgetState extends State<RaceWidget> {
               padding: const EdgeInsets.symmetric(vertical: 12.0),
               sliver:  SliverList(
                 delegate:  SliverChildBuilderDelegate(
-                    (context, index) =>  RaceRow(races[index]),
+                    (context, index) =>  RaceRow(races[index], index==nextRace),
                     childCount: races.length,
                 ),
               ),

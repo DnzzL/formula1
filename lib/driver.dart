@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:formula1/driverdetails.dart';
 import 'package:xml/xml.dart' as xml;
 import 'package:http/http.dart' as http;
 import 'driverstandingrow.dart';
@@ -50,7 +51,7 @@ class _DriverWidgetState extends State<DriverWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: Container(
-        color: Colors.black,
+        color: Colors.grey[900],
         child: CustomScrollView(
           scrollDirection: Axis.vertical,
           shrinkWrap: false,
@@ -59,7 +60,16 @@ class _DriverWidgetState extends State<DriverWidget> {
               padding: const EdgeInsets.symmetric(vertical: 12.0),
               sliver:  SliverList(
                 delegate:  SliverChildBuilderDelegate(
-                    (context, index) =>  DriverStandingRow(driverStandings[index]),
+                    (context, index) =>  ListTile(
+                      title: DriverStandingRow(driverStandings[index]),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => DriverDetailsWidget(driverStanding: driverStandings[index])),
+                        );
+                      }
+                      
+                    ),
                   childCount: driverStandings.length,
                 ),
               ),

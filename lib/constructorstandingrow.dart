@@ -61,7 +61,7 @@ class ConstructorStandingRow extends StatelessWidget {
 
 
     final constructorStandingCardContent = new Container(
-      margin: new EdgeInsets.fromLTRB(130.0, 16.0, 16.0, 16.0),
+      margin: new EdgeInsets.fromLTRB(130.0, 10.0, 16.0, 16.0),
       constraints: new BoxConstraints.expand(),
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +115,7 @@ class ConstructorStandingRow extends StatelessWidget {
 
 
     return new Container(
-      height: 120.0,
+      height: 110.0,
       margin: const EdgeInsets.symmetric(
         vertical: 5.0,
         horizontal: 20.0,

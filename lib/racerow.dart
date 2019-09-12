@@ -5,8 +5,9 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 class RaceRow extends StatelessWidget {
 
   final Race race;
+  final bool isNextRace;
 
-  RaceRow(this.race);
+  RaceRow(this.race, this.isNextRace);
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +106,7 @@ class RaceRow extends StatelessWidget {
         borderRadius: new BorderRadius.circular(8.0),
         boxShadow: <BoxShadow>[
           new BoxShadow(
-            color: Colors.grey[900],
+            color: isNextRace ? Colors.red : Colors.grey[900],
             blurRadius: 10.0,
             offset: new Offset(0.0, 5.0),
           ),

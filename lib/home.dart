@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:formula1/circuit.dart';
+import 'package:formula1/driverdetails.dart';
 import 'package:formula1/constructor.dart';
 import 'package:formula1/driver.dart';
 import 'package:formula1/race.dart';
@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
     RaceWidget(),
     DriverWidget(),
     ConstructorWidget(),
-    CircuitWidget()
+    DriverDetailsWidget()
   ];
 
 
@@ -32,6 +32,9 @@ class _HomeState extends State<Home> {
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.grey[900],
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.red,
         type: BottomNavigationBarType.fixed,
         onTap: onTabTapped,
         currentIndex: _currentIndex,
@@ -50,7 +53,7 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(MdiIcons.selectCompare),
-            title: Text('VS')
+            title: Text('VS'),
           )
         ],
       ),
