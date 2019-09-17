@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:formula1/driverdetails.dart';
 import 'package:formula1/constructor.dart';
 import 'package:formula1/driver.dart';
@@ -21,6 +22,12 @@ class _HomeState extends State<Home> {
     ConstructorWidget(),
     DriverDetailsWidget()
   ];
+
+  @override
+  void initState() async {
+    super.initState();
+    await DefaultCacheManager().emptyCache();
+  }
 
 
   @override

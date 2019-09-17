@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:xml/xml.dart' as xml;
 import 'package:http/http.dart' as http;
 import 'model/race.dart';
@@ -23,11 +24,11 @@ class _RaceWidgetState extends State<RaceWidget> {
 
   void fetch() async {
     String api = "https://ergast.com/api/f1";
-    String url = "$api/current";
+    String url = "$api/current"; 
+
     
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var xmlResponse = xml.parse(response.body);
+      var response = await DefaultCacheManager().getSingleFile(url);
+      var xmlResponse = xml.parse(response.readAsStringSync());
       setState(() {
       races = xmlResponse.findAllElements('Race')
         .map<Race>((race) {
@@ -48,9 +49,6 @@ class _RaceWidgetState extends State<RaceWidget> {
           DateTime.parse(race.date).isAfter(DateTime.now())
         ).round) - 1;
       });
-    } else {
-      print("Request failed with status: ${response.statusCode}.");
-    }
   }
 
   @override

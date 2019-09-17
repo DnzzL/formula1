@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:formula1/model/constructorstanding.dart';
 import 'package:xml/xml.dart' as xml;
 import 'package:http/http.dart' as http;
@@ -25,9 +26,8 @@ class _ConstructorWidgetState extends State<ConstructorWidget> {
     String api = "https://ergast.com/api/f1";
     String url = "$api/current/constructorStandings";
     
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var xmlResponse = xml.parse(response.body);
+    var response = await DefaultCacheManager().getSingleFile(url);
+      var xmlResponse = xml.parse(response.readAsStringSync());
       setState(() {
         constructorStandings =  xmlResponse.findAllElements("ConstructorStanding").map((standing) {
           return ConstructorStanding(
@@ -39,9 +39,6 @@ class _ConstructorWidgetState extends State<ConstructorWidget> {
             standing.findElements("Constructor").first.findElements("Nationality").first.text);
         }).toList();
       });
-    } else {
-      print("Request failed with status: ${response.statusCode}.");
-    }
 }
 
   @override
