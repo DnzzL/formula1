@@ -19,7 +19,7 @@ class _DriverDetailsWidgetState extends State<DriverDetailsWidget> {
   final DriverStanding driverStanding;
   _DriverDetailsWidgetState(this.driverStanding);
 
-  List<QualityingResult> qualifyingResults = List<QualityingResult>();
+  List<QualifyingResult> qualifyingResults = List<QualifyingResult>();
   List<RaceResult> raceResults = List<RaceResult>();
 
   @override
@@ -48,7 +48,7 @@ class _DriverDetailsWidgetState extends State<DriverDetailsWidget> {
       print(xmlResponse.findElements("QualifyingResult"));
       setState(() {
         qualifyingResults = xmlResponse.findAllElements("Race").map((race) {
-          return QualityingResult(
+          return QualifyingResult(
               race.getAttribute("season"),
               race.getAttribute("round"),
               race.findElements("Circuit").first.getAttribute("circuitId"),
@@ -107,54 +107,50 @@ class _DriverDetailsWidgetState extends State<DriverDetailsWidget> {
       print("Request failed with status: ${response.statusCode}.");
     }
   }
-  
 
   Widget _getDateOfBirth() {
     return Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
-                  ),
-                  Icon(MdiIcons.calendar, color: Colors.red[400]),
-                  Container(
-                    margin: EdgeInsets.only(right: 20),
-                  ),
-                  Text(this.driverStanding.dateOfBirth,
-                      style: subHeaderTextStyle),
-                ],
-              );
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
+        ),
+        Icon(MdiIcons.calendar, color: Colors.red[400]),
+        Container(
+          margin: EdgeInsets.only(right: 20),
+        ),
+        Text(this.driverStanding.dateOfBirth, style: subHeaderTextStyle),
+      ],
+    );
   }
 
   Widget _getNationality() {
     return Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(50, 50, 0, 0),
-                  ),
-                  Icon(MdiIcons.city, color: Colors.red[400]),
-                  Container(
-                    margin: EdgeInsets.only(right: 20),
-                  ),
-                  Text(this.driverStanding.nationality,
-                      style: subHeaderTextStyle),
-                ],
-              );
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.fromLTRB(50, 50, 0, 0),
+        ),
+        Icon(MdiIcons.city, color: Colors.red[400]),
+        Container(
+          margin: EdgeInsets.only(right: 20),
+        ),
+        Text(this.driverStanding.nationality, style: subHeaderTextStyle),
+      ],
+    );
   }
 
   Widget _getConstructor() {
     return Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(left: 50),
-                  ),
-                  Icon(MdiIcons.garage, color: Colors.red[400]),
-                  Container(
-                    margin: EdgeInsets.only(right: 20),
-                  ),
-                  Text(this.driverStanding.constructor,
-                      style: subHeaderTextStyle),
-                ],
-              );
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(left: 50),
+        ),
+        Icon(MdiIcons.garage, color: Colors.red[400]),
+        Container(
+          margin: EdgeInsets.only(right: 20),
+        ),
+        Text(this.driverStanding.constructor, style: subHeaderTextStyle),
+      ],
+    );
   }
 
   Widget _getLegend() {
@@ -336,7 +332,12 @@ class _DriverDetailsWidgetState extends State<DriverDetailsWidget> {
               ),
               _getLegend(),
               raceResults.length > 0
-                  ? _getChart(this.qualifyingResults, this.raceResults)
+                  ? Column(
+                      children: <Widget>[
+                        _getChart(this.qualifyingResults, this.raceResults)
+
+                      ],
+                    )
                   : Container()
             ],
           ),

@@ -5,6 +5,7 @@ import 'package:formula1/driverdetails.dart';
 import 'package:formula1/constructor.dart';
 import 'package:formula1/driver.dart';
 import 'package:formula1/race.dart';
+import 'package:formula1/versusdetails.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Home extends StatefulWidget {
@@ -20,13 +21,12 @@ class _HomeState extends State<Home> {
     RaceWidget(),
     DriverWidget(),
     ConstructorWidget(),
-    DriverDetailsWidget()
+    VersusDetailsWidget()
   ];
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    await DefaultCacheManager().emptyCache();
   }
 
 
